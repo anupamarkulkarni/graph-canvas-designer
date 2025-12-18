@@ -1,19 +1,22 @@
 import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { AppsList } from './AppsList';
 import { NodeInspector } from './NodeInspector';
 import { useAppStore } from '@/store/appStore';
 import { cn } from '@/lib/utils';
 
-interface RightPanelProps {
-  isMobile?: boolean;
-}
-
-export const RightPanel = ({ isMobile = false }: RightPanelProps) => {
+export const NodeInspectorDrawer = () => {
   const { isMobilePanelOpen, setMobilePanelOpen, selectedNodeId } = useAppStore();
 
-  if (isMobile) {
-    return (
+  if (!selectedNodeId) return null;
+
+  return (
+    <>
+      {/* Desktop - Slide-in panel */}
+      <aside className="hidden lg:block w-80 bg-card border-l border-border overflow-y-auto animate-slide-in-right">
+        <NodeInspector />
+      </aside>
+
+      {/* Mobile - Overlay drawer */}
       <>
         {/* Overlay */}
         {isMobilePanelOpen && (
@@ -31,22 +34,14 @@ export const RightPanel = ({ isMobile = false }: RightPanelProps) => {
           )}
         >
           <div className="flex items-center justify-between p-4 border-b border-border">
-            <h2 className="font-semibold">Panel</h2>
+            <h2 className="font-semibold">Node Inspector</h2>
             <Button variant="ghost" size="icon" onClick={() => setMobilePanelOpen(false)}>
               <X className="w-4 h-4" />
             </Button>
           </div>
-          <AppsList />
-          {selectedNodeId && <NodeInspector />}
+          <NodeInspector />
         </aside>
       </>
-    );
-  }
-
-  return (
-    <aside className="hidden lg:block w-80 bg-card border-l border-border overflow-y-auto">
-      <AppsList />
-      {selectedNodeId && <NodeInspector />}
-    </aside>
+    </>
   );
 };

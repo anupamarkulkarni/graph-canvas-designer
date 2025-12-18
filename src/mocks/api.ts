@@ -16,9 +16,26 @@ const graphDataByApp: Record<string, GraphData> = {
   'app-1': {
     nodes: [
       {
+        id: 'node-0',
+        type: 'serviceNode',
+        position: { x: 80, y: -80 },
+        data: {
+          label: 'Gateway',
+          type: 'service',
+          status: 'healthy',
+          pricing: '$0.03/HR',
+          cpu: 0.02,
+          memory: '0.05 GB',
+          disk: '10.00 GB',
+          region: 1,
+          sliderValue: 50,
+          description: 'API Gateway service',
+        },
+      },
+      {
         id: 'node-1',
         type: 'serviceNode',
-        position: { x: 100, y: 100 },
+        position: { x: 520, y: 30 },
         data: {
           label: 'Postgres',
           type: 'database',
@@ -35,7 +52,7 @@ const graphDataByApp: Record<string, GraphData> = {
       {
         id: 'node-2',
         type: 'serviceNode',
-        position: { x: 100, y: 400 },
+        position: { x: 80, y: 280 },
         data: {
           label: 'Redis',
           type: 'cache',
@@ -52,7 +69,7 @@ const graphDataByApp: Record<string, GraphData> = {
       {
         id: 'node-3',
         type: 'serviceNode',
-        position: { x: 500, y: 250 },
+        position: { x: 580, y: 320 },
         data: {
           label: 'MongoDB',
           type: 'database',
