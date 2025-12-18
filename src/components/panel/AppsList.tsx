@@ -5,6 +5,7 @@ import { useApps } from '@/hooks/useApps';
 import { useAppStore } from '@/store/appStore';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
+import { getAppIcon } from '@/components/icons/ServiceIcons';
 
 export const AppsList = () => {
   const { data: apps, isLoading, error } = useApps();
@@ -54,9 +55,7 @@ export const AppsList = () => {
                   : 'hover:bg-accent/50 text-muted-foreground'
               )}
             >
-              <span className="w-8 h-8 bg-secondary rounded-lg flex items-center justify-center text-lg">
-                {app.icon}
-              </span>
+              {getAppIcon(app.name)}
               <span className="flex-1 text-sm font-medium truncate">{app.name}</span>
               <ChevronRight className="w-4 h-4" />
             </button>

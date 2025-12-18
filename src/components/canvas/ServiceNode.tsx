@@ -3,6 +3,7 @@ import { Handle, Position } from '@xyflow/react';
 import { Settings, Cpu, HardDrive, Server, MapPin } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { ServiceIcon, AwsLogo } from '@/components/icons/ServiceIcons';
 import type { ServiceNodeData } from '@/types/graph';
 
 interface ServiceNodeProps {
@@ -22,12 +23,6 @@ const statusLabels = {
   down: 'Error',
 };
 
-const typeIcons: Record<string, string> = {
-  database: '🐘',
-  cache: '🔴',
-  service: '⚙️',
-};
-
 export const ServiceNode = memo(({ data, selected }: ServiceNodeProps) => {
   return (
     <div
@@ -40,12 +35,12 @@ export const ServiceNode = memo(({ data, selected }: ServiceNodeProps) => {
       
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <span className="text-xl">{typeIcons[data.type] || '⚙️'}</span>
+        <div className="flex items-center gap-3">
+          <ServiceIcon type={data.type} label={data.label} />
           <span className="font-semibold text-foreground">{data.label}</span>
         </div>
         <div className="flex items-center gap-2">
-          <Badge variant="outline" className="bg-primary/10 text-primary border-primary/30 text-xs">
+          <Badge variant="outline" className="bg-primary/10 text-primary border-primary/30 text-xs font-medium">
             {data.pricing}
           </Badge>
           <button className="p-1.5 hover:bg-accent rounded-md transition-colors">
@@ -99,7 +94,7 @@ export const ServiceNode = memo(({ data, selected }: ServiceNodeProps) => {
         <Badge className={cn('text-xs', statusStyles[data.status])}>
           {data.status === 'healthy' ? '✓' : '⚠'} {statusLabels[data.status]}
         </Badge>
-        <span className="text-warning font-bold text-sm tracking-wider">aws</span>
+        <AwsLogo />
       </div>
 
       <Handle type="source" position={Position.Bottom} className="!bg-primary !w-3 !h-3" />
